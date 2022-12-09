@@ -23,5 +23,13 @@ router.get('/test-you', function(req, res){
     res.send("very important text")
 })
 
+router.get('/', function(req, res){
+    
+    res.send("@ Home Page")
+})
+router.get('/movies', function(req, res){
+    const moviesarr=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    res.send(moviesarr)
+})
 
 module.exports = router;
