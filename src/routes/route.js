@@ -79,8 +79,9 @@ router.get('/movies', function(req, res){
     res.send(moviesarr)
 })
 
+// 2 and 3 problem combined
 router.get('/movies/:indexNumber', function(req, res){
-    if(req.params.indexNumber<moviesarr.length)
+    if(req.params.indexNumber<moviesarr.length && req.params.indexNumber>=0 )
     {
         res.send(moviesarr[req.params.indexNumber])
     }
