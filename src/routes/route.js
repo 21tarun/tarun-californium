@@ -31,6 +31,49 @@ router.get('/', function(req, res){
     
     res.send("@ Home Page")
 })
+
+// PATH Param example
+router.get('/student-details/:name', function(req, res){
+    /*
+    params is an attribute inside request that contains 
+    dynamic values.
+    This value comes from the request url in the form of an 
+    object where key is the variable defined in code 
+    and value is what is sent in the request
+    */
+
+    let requestParams = req.params
+
+    // JSON strigify function helps to print an entire object
+    // We can use many ways to print an object in Javascript, JSON stringify is one of them
+    console.log("This is the request "+ JSON.stringify(requestParams))
+    let studentName = requestParams.name
+    console.log('Name of the student is ', studentName)
+    
+    res.send('Dummy response')
+})
+
+// PATH Param example
+router.get("/profile/:name", function(req, res){
+    console.log('Printing the request to find out wjere name is stored',req.params)
+    console.log('user name is',req.params.name)
+    //console.log(`User requesting for profile is ${name}`)
+    res.send("dummy details")
+})
+
+// Query Param example
+router.get("/shoes", function(req, res){
+    console.log("The filter options for shoes are -",req.query)
+    //req.query.size
+    //req.query.brand
+    res.send("dummy shoes response")
+})
+
+
+
+
+
+
 const moviesarr=["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
 router.get('/movies', function(req, res){
     res.send(moviesarr)
