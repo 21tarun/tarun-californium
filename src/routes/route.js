@@ -8,17 +8,53 @@ router.get('/test-me', function(req, res){
     res.send("To test my API")
 })
 
-router.post('/test', function(req, res){
-    for(let i=0;i<arr.length;i++)
+let players=[
     {
-        if(arr[i].name == obj.name)
+        "name": "manish",
+        "dob": "1/1/1995",
+        "gender": "male",
+        "city": "jalandhar",
+        "sports": [
+        "swimming"
+        ]
+    },
+    {
+        "name": "gopal",
+        "dob": "1/09/1995",
+        "gender": "male",
+        "city": "delhi",
+        "sports": [
+        "soccer"
+        ]
+    },
+    {
+        "name": "lokesh",
+        "dob": "1/1/1990",
+        "gender": "male",
+        "city": "mumbai",
+        "sports": [
+        "soccer"
+        ]
+    }
+        
+]
+
+
+
+
+router.post('/players', function(req, res){
+    const newObj=req.body
+    for(let i=0;i<players.length;i++)
+    {
+        if(players[i].name == newObj.name)
         {
             res.send("User already exist")
             return
         }
     }
-    arr.push(obj)
-    res.send(`${arr}`)
+    players.push(newObj)
+    // console.log(players)
+    res.send({data:players,msg:"new user added successfully"})
     
 })
 
