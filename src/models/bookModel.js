@@ -2,13 +2,22 @@ const mongoose = require('mongoose')
 
 
 const bookSchema= new mongoose.Schema({
-    "bookName":String,
-    "authorName":{type:String,
-                  required:true},
-    "category":{type:String,
-                enum:["Horror","love story","Classical","Adventure","Crime"],
-                },
-    "year":Number
+    "bookName":{
+        type:String,
+        required:true
+    },
+    "authorName": String,
+    "prices":{
+        indianPrice:String,
+        europeanPrice:String
+    },
+    "tags":[String],
+    "totalPages":Number,
+    "stockAvailable":Boolean,
+    "year":{
+        type:Number,
+        default:2021
+    }
 
 },{timestamps:true})
 
