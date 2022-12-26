@@ -15,7 +15,7 @@ mongoose.connect("mongodb+srv://tarun21:tarun1616@cluster0.h0l8mir.mongodb.net/t
 .catch ( err => console.log(err) )
 
 app.use('/', route);
-app.use()
+
 // unreachable becuase the cycle has terminated
 app.use(
     function (req, res, next) {
