@@ -16,13 +16,7 @@ mongoose.connect("mongodb+srv://tarun21:tarun1616@cluster0.h0l8mir.mongodb.net/t
 
 app.use('/', route);
 
-// unreachable becuase the cycle has terminated
-app.use(
-    function (req, res, next) {
-        console.log ("inside GLOBAL MW");
-        next();
-  }
-);
+
 
 
 app.listen(process.env.PORT || 3000, function () {
