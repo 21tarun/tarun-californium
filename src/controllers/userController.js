@@ -50,12 +50,24 @@ const deleteUser =async function(req,res)
     res.send({msg:"your account has deleted"})
 }
 
+const createNewPost= async function(req,res)
+{
+    const userId =req.params.userId
+    const message= req.body.message
+    const user=await userModel.findById(userId)
+    const userPosts =user.posts
+    userPosts.push(message)
+    const updatedUser = await userModel.findByIdAndUpdate(userId, {$set:{posts:userPosts}},{new:true})
+    res.send({status:true,data:updatedUser})
+}
+
 
 
 module.exports.createUser= createUser
 module.exports.login= login
 module.exports.userDetails=userDetails
 module.exports.updateUserDetails=updateUserDetails
+module.exports.createNewPost=createNewPost
 module.exports.deleteUser=deleteUser
 
 
