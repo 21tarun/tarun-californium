@@ -9,7 +9,7 @@ const mid1= async function(req,res,next){
         if (error)
           return res.send({ status: false, message: "token is invalid " });
         if(decodedToken.userId != userIdToBePerformed)
-          return res.send({status:false, msg:"you are authorized person to do this operation"})
+          return res.send({status:false, msg:"you are not authorized person to do this operation"})
         next()  
     })
 
