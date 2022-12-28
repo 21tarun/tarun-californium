@@ -5,20 +5,34 @@ const jwt =require('jsonwebtoken')
 
 const createUser = async function(req,res)
 {
-    const data =req.body
-    const saveData=await userModel.create(data)
-    res.send({msg:saveData})
+    try{
+        const data =req.body
+        if(Object.keys(data).length==0)
+            return res.status(400).send({msg:"you are sending request without data"})
+        const saveData=await userModel.create(data)
+        res.status(201).send({msg:saveData})
+    }
+    catch(error){
+        res.status(400).send({status:false,msg:error.message})
+    }
 }
 
 const login = async function(req,res)
 {
-    const email =req.body.emailId
-    const pass=req.body.password
-    
-    const user=await userModel.findOne({emailId:email,password:pass})
-    if(!user) return res.send({msg:"login credential are invailid"})
-    let token =await jwt.sign({userId:user._id.toString()},'californium-tarun')
-    res.send({status:true,data:token})
+    try{
+        const email =req.body.emailId
+        const pass=req.body.password
+        if(!email) return res.status(400).send({msg:"enter your regestered email to login"})
+        if(!pass) return res.status(400).send({msg:"enter your password to login"})
+        const user=await userModel.findOne({emailId:email,password:pass})
+        if(!user) return res.status(400).send({msg:"login credential are invailid"})
+        let token =await jwt.sign({userId:user._id.toString()},'californium-tarun')
+        res.status(200).send({status:true,data:token})
+    }
+    catch(error)
+    {
+        res.status(500).send({status:false,msg:error.message})
+    }
 }
 
 const userDetails =async function(req,res)
@@ -26,7 +40,7 @@ const userDetails =async function(req,res)
     const userId=req.params.userId
 
     const data =await userModel.findById(userId)
-    res.send({msg:data})
+    res.status(200).send({msg:data})
 }
 
 const updateUserDetails =async function(req,res)
@@ -37,7 +51,7 @@ const updateUserDetails =async function(req,res)
     const UpdatedData =await userModel.findByIdAndUpdate(userId,
         {$set:dataForUpdate}
         ,{new:true})
-    res.send({status:true,data:UpdatedData})
+    res.status(200).send({status:true,data:UpdatedData})
 }
 
 const deleteUser =async function(req,res)
@@ -47,7 +61,7 @@ const deleteUser =async function(req,res)
     const UpdatedData =await userModel.findByIdAndUpdate(userId,
         {$set:{isDeleted:true}}
         ,{new:true})
-    res.send({msg:"your account has deleted"})
+    res.status(200).send({msg:"your account has deleted"})
 }
 
 const createNewPost= async function(req,res)
